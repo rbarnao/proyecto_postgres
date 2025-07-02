@@ -1,0 +1,8 @@
+---
+- name: Generar Reporte de Base de Datos PostgreSQL
+  hosts: windows_servers
+  connection: winrm
+  gather_facts: false
+
+  roles:
+    - reporte_postgres
