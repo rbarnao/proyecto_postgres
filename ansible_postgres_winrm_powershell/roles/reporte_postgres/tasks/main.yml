@@ -1,0 +1,19 @@
+---
+- name: Obtener datos de la Base de Datos PostgreSQL
+  community.postgresql.postgresql_query:
+    login_host: "{{ postgresql_host }}"
+    login_port: "{{ postgresql_port }}"
+    login_user: "{{ postgresql_user }}"
+    login_password: "{{ postgresql_password }}"
+    login_db: "{{ postgresql_database }}"
+    query: "{{ postgresql_query }}"
+  register: postgres_result
+
+- name: Renderizar la plantilla Jinja2 a HTML
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/report.html.j2"
+    dest: "{{ output_html_file }}"
+    mode: '0644'
+  vars:
+    db_data: "{{ postgres_result.query_result | default([]) }}"
+  delegate_to: localhost
