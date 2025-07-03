@@ -7,12 +7,12 @@
     - name: Copiar script PowerShell al servidor remoto
       ansible.windows.win_copy:
         src: scripts/query_postgres.ps1
-        dest: C:\Temp\query_postgres.ps1
+        dest: C:\Users\WIN2019\Documents\query_postgres.ps1
 
     - name: Ejecutar script PowerShell para consultar PostgreSQL
       ansible.windows.win_powershell:
         script: |
-          C:\Temp\query_postgres.ps1
+          C:\Users\WIN2019\Documents\query_postgres.ps1
       register: postgres_query_output
       args:
         executable: powershell.exe
