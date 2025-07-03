@@ -1,8 +1,28 @@
 ---
-- name: Generar Reporte de Base de Datos PostgreSQL
+- name: Ejecutar consulta PostgreSQL en servidor Windows por PowerShell
   hosts: windows_servers
-  connection: winrm
   gather_facts: false
 
-  roles:
-    - reporte_postgres
+  tasks:
+    - name: Copiar script PowerShell al servidor remoto
+      ansible.windows.win_copy:
+        src: scripts/query_postgres.ps1
+        dest: C:\Temp\query_postgres.ps1
+
+    - name: Ejecutar script PowerShell para consultar PostgreSQL
+      ansible.windows.win_powershell:
+        script: |
+          C:\Temp\query_postgres.ps1
+      register: postgres_query_output
+      args:
+        executable: powershell.exe
+
+    - name: Mostrar resultado de la consulta PostgreSQL
+      ansible.builtin.debug:
+        msg: "{{ postgres_query_output.stdout_lines | join('\n') }}"
+      when: postgres_query_output.stdout_lines is defined and postgres_query_output.stdout_lines | length > 0
+
+    - name: Mostrar errores si los hay
+      ansible.builtin.debug:
+        msg: "{{ postgres_query_output.stderr_lines | join('\n') }}"
+      when: postgres_query_output.stderr_lines is defined and postgres_query_output.stderr_lines | length > 0
