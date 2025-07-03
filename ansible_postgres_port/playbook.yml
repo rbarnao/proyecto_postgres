@@ -1,0 +1,34 @@
+---
+- name: Consultar base de datos PostgreSQL directo al puerto
+  hosts: localhost
+  connection: local
+  become: false
+
+  vars:
+    db_name: pokemon_db
+    db_user: postgres
+    db_pass: 3Wolf6Raven8
+    db_host: 192.168.68.76
+    db_port: 5432
+    table_name: pokemons
+
+  tasks:
+    - name: Asegurar que psycopg2 esté instalado para la conexión a PostgreSQL
+      ansible.builtin.pip:
+        name: psycopg2-binary
+        state: present
+      delegate_to: localhost
+
+    - name: Ejecutar query en PostgreSQL
+      community.postgresql.postgresql_query:
+        login_host: "{{ db_host }}"
+        login_port: "{{ db_port }}"
+        login_user: "{{ db_user }}"
+        login_password: "{{ db_pass }}"
+        db: "{{ db_name }}"
+        query: "SELECT * FROM {{ table_name }};"
+      register: query_result
+
+    - name: Mostrar resultados de la consulta
+      ansible.builtin.debug:
+        var: query_result.query_result
