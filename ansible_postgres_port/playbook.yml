@@ -13,11 +13,6 @@
     table_name: pokemons
 
   tasks:
-    - name: Asegurar que psycopg2 esté instalado para la conexión a PostgreSQL
-      ansible.builtin.pip:
-        name: psycopg2-binary
-        state: present
-      delegate_to: localhost
 
     - name: Ejecutar query en PostgreSQL
       community.postgresql.postgresql_query:
