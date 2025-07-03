@@ -6,4 +6,4 @@ postgresql_user: "postgres"
 postgresql_password: "3Wolf6Raven8"
 postgresql_query: "SELECT id, nombre, tipo1 FROM pokemons ORDER BY id;"
 output_html_file: "/Users/fudo/Documents/Invoke/Laboratorios/postgres.html"
-ansible_python_interpreter: 'C:\Users\Administrator\AppData\Local\Programs\Python\Python313\python.exe'
+ansible_python_interpreter: "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
