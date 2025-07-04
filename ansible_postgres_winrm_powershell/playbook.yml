@@ -17,6 +17,10 @@
       args:
         executable: powershell.exe
 
+    - name: Mostrar objeto completo de salida
+      ansible.builtin.debug:
+        var: postgres_query_output
+
     - name: Mostrar resultado de la consulta PostgreSQL
       ansible.builtin.debug:
         msg: "{{ postgres_query_output.stdout_lines | join('\n') }}"
