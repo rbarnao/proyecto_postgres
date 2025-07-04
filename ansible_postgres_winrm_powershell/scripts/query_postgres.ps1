@@ -14,3 +14,6 @@ $env:PGPASSWORD = $password
 
 # Ejecutar consulta
 & "$psqlPath" -h $pgHost -p $port -U $user -d $dbname -c $sql
+
+# Imprimir la salida para que Ansible la capture
+Write-Output $result
