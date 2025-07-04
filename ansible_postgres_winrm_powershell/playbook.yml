@@ -19,7 +19,10 @@
 
     - name: Mostrar resultado de la consulta PostgreSQL
       ansible.builtin.debug:
-        msg: "{{ postgres_query_output.output | join('\n') }}"
+        msg: |
+          {% for linea in postgres_query_output.output %}
+          {{ linea }}
+          {% endfor %}
       when: postgres_query_output.output is defined and postgres_query_output.output | length > 0
 
     - name: Mostrar errores si los hay
