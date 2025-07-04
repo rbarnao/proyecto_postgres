@@ -12,7 +12,7 @@ $sql = "SELECT * FROM pokemons LIMIT 5;"
 # Exportar la contraseña para que psql no la solicite interactivo
 $env:PGPASSWORD = $password
 
-# Ejecutar consulta
+# Ejecutar consulta y capturar la salida en formato CSV
 $result = & "$psqlPath" -h $pgHost -p $port -U $user -d $dbname -c $sql
 
 # Imprimir la salida para que Ansible la capture
