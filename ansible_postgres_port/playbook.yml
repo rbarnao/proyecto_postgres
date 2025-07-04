@@ -21,7 +21,7 @@
         login_user: "{{ db_user }}"
         login_password: "{{ db_pass }}"
         db: "{{ db_name }}"
-        query: "SELECT * FROM {{ table_name }};"
+        query: "SELECT nombre FROM {{ table_name }} WHERE tipo1 = 'Fuego';"
       register: query_result
 
     - name: Mostrar resultados de la consulta
