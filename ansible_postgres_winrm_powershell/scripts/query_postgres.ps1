@@ -13,7 +13,7 @@ $sql = "SELECT * FROM pokemons LIMIT 5;"
 $env:PGPASSWORD = $password
 
 # Ejecutar consulta
-& "$psqlPath" -h $pgHost -p $port -U $user -d $dbname -c $sql
+$result = & "$psqlPath" -h $pgHost -p $port -U $user -d $dbname -c $sql
 
 # Imprimir la salida para que Ansible la capture
 Write-Output $result
