@@ -1,6 +1,6 @@
 ---
 - name: Ejecutar consulta PostgreSQL en servidor Windows por PowerShell
-  hosts: windows_servers
+  hosts: all
   gather_facts: false
 
   tasks:
